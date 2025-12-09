@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greek Wordle</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f6d9ad;
+      color: #0c344d;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0c344d;
+      text-align: center;
+    }
+
+    .icon-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+      font-size: 1.5rem;
+      color: #0c344d;
+    }
+
+    .icon-button:hover {
+      background-color: rgba(12, 52, 77, 0.1);
+    }
+
+    .game-board {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .grid.shake {
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tile {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #d4c5a9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .tile.empty {
+      background: white;
+      color: #0c344d;
+    }
+
+    .tile.current {
+      border-color: #0c344d;
+      border-width: 3px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .tile.correct {
+      background: #0c344d;
+      color: #f6d9ad;
+      border-color: #0c344d;
+    }
+
+    .tile.present {
+      background: #bb504a;
+      color: #f6d9ad;
+      border-color: #bb504a;
+    }
+
+    .tile.absent {
+      background: #d4c5a9;
+      color: #8b7355;
+      border-color: #d4c5a9;
+    }
+
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .keyboard-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .key {
+      padding: 12px;
+      min-width: 40px;
+      background: white;
+      border: 2px solid #d4c5a9;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #0c344d;
+    }
+
+    .key:hover:not(:disabled) {
+      background: rgba(12, 52, 77, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .key:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .key.wide {
+      padding: 12px 20px;
+    }
+
+    .key.correct {
+      background: #0c344d;
+      color: #f6d9ad;
+      border-color: #0c344d;
+    }
+
+    .key.present {
+      background: #bb504a;
+      color: #f6d9ad;
+      border-color: #bb504a;
+    }
+
+    .key.absent {
+      background: #d4c5a9;
+      color: #8b7355;
+      border-color: #d4c5a9;
+    }
+
+    .message {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: slideIn 0.3s;
+      max-width: 400px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: #0c344d;
+    }
+
+    .message p {
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .button {
+      background: #0c344d;
+      color: #f6d9ad;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .button:hover {
+      background: #154563;
+      transform: translateY(-2px);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      color: #0c344d;
+      margin-bottom: 16px;
+    }
+
+    .modal-body {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .example {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .example-tile {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .close-button {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: #666;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      .tile {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .key {
+        min-width: 32px;
+        padding: 10px 8px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="icon-button" onclick="openHelp()" aria-label="Help">?</button>
+      <h1>GREEK WORDLE</h1>
+      <button class="icon-button" onclick="startNewGame()" aria-label="New Game">↻</button>
+    </div>
+
+    <div class="game-board">
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <div id="message" style="display: none;"></div>
+
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <button class="close-button" onclick="closeHelp()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-title">How to play</h2>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 20px;">Guess the Greek word in 6 tries. Each guess must be a valid 5-letter Greek word.</p>
+        <p style="font-weight: bold; margin-bottom: 12px;">After each guess, the color of the tiles will change:</p>
+        <div class="example">
+          <div class="example-tile" style="background: #0c344d; color: #f6d9ad;">Λ</div>
+          <span>The letter is in the word and in the correct spot</span>
+        </div>
+        <div class="example">
+          <div class="example-tile" style="background: #bb504a; color: #f6d9ad;">Ο</div>
+          <span>The letter is in the word but in the wrong spot</span>
+        </div>
+        <div class="example">
+          <div class="example-tile" style="background: #d4c5a9; color: #8b7355;">Γ</div>
+          <span>The letter is not in the word</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WORD_LENGTH = 5;
+    const MAX_GUESSES = 6;
+
+    const GREEK_WORDS = [
+      "ΛΟΓΟΣ", "ΚΑΛΟΣ", "ΝΕΡΟΥ", "ΨΥΧΗΣ", "ΠΟΛΗΣ",
+      "ΤΕΧΝΗ", "ΜΑΝΕΣ", "ΓΝΩΣΗ", "ΔΟΞΑΣ", "ΣΠΙΤΙ"
+    ];
+
+    const GREEK_KEYS = [
+      ["Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
+      ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
+      ["ENTER", "Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ", "⌫"]
+    ];
+
+    let targetWord = "";
+    let guesses = [];
+    let currentGuess = "";
+    let currentRow = 0;
+    let gameOver = false;
+    let keyStatuses = {};
+
+    function init() {
+      createKeyboard();
+      startNewGame();
+    }
+
+    function startNewGame() {
+      targetWord = GREEK_WORDS[Math.floor(Math.random() * GREEK_WORDS.length)];
+      guesses = Array(MAX_GUESSES).fill(null).map(() => 
+        Array(WORD_LENGTH).fill({ letter: "", status: "empty" })
+      );
+      currentGuess = "";
+      currentRow = 0;
+      gameOver = false;
+      keyStatuses = {};
+      
+      document.getElementById("message").style.display = "none";
+      renderGrid();
+      renderKeyboard();
+    }
+
+    function createKeyboard() {
+      const keyboard = document.getElementById("keyboard");
+      keyboard.innerHTML = "";
+      
+      GREEK_KEYS.forEach(row => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "keyboard-row";
+        
+        row.forEach(key => {
+          const keyButton = document.createElement("button");
+          keyButton.className = "key" + (key === "ENTER" || key === "⌫" ? " wide" : "");
+          keyButton.textContent = key;
+          keyButton.onclick = () => handleKeyPress(key);
+          keyButton.dataset.key = key;
+          rowDiv.appendChild(keyButton);
+        });
+        
+        keyboard.appendChild(rowDiv);
+      });
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      grid.className = "grid";
+      
+      guesses.forEach((guess, rowIndex) => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "row";
+        
+        guess.forEach((tile, colIndex) => {
+          const tileDiv = document.createElement("div");
+          let displayLetter = tile.letter;
+          
+          if (rowIndex === currentRow && colIndex < currentGuess.length) {
+            displayLetter = currentGuess[colIndex];
+            tileDiv.className = "tile current";
+          } else {
+            tileDiv.className = `tile ${tile.status}`;
+          }
+          
+          tileDiv.textContent = displayLetter;
+          rowDiv.appendChild(tileDiv);
+        });
+        
+        grid.appendChild(rowDiv);
+      });
+    }
+
+    function handleKeyPress(key) {
+      if (gameOver) return;
+
+      if (key === "ENTER") {
+        if (currentGuess.length !== WORD_LENGTH) {
+          const grid = document.getElementById("grid");
+          grid.classList.add("shake");
+          setTimeout(() => grid.classList.remove("shake"), 500);
+          return;
+        }
+        submitGuess();
+      } else if (key === "⌫") {
+        currentGuess = currentGuess.slice(0, -1);
+        renderGrid();
+      } else if (currentGuess.length < WORD_LENGTH) {
+        currentGuess += key;
+        renderGrid();
+      }
+    }
+
+    function submitGuess() {
+      const newGuesses = [...guesses];
+      const newTiles = [];
+      const targetLetters = targetWord.split("");
+      const guessLetters = currentGuess.split("");
+      const letterCounts = {};
+
+      targetLetters.forEach(letter => {
+        letterCounts[letter] = (letterCounts[letter] || 0) + 1;
+      });
+
+      guessLetters.forEach((letter, i) => {
+        if (letter === targetLetters[i]) {
+          newTiles[i] = { letter, status: "correct" };
+          letterCounts[letter]--;
+        } else {
+          newTiles[i] = { letter, status: "absent" };
+        }
+      });
+
+      guessLetters.forEach((letter, i) => {
+        if (newTiles[i].status === "absent" && letterCounts[letter] > 0) {
+          newTiles[i] = { letter, status: "present" };
+          letterCounts[letter]--;
+        }
+      });
+
+      guesses[currentRow] = newTiles;
+
+      newTiles.forEach(tile => {
+        const currentStatus = keyStatuses[tile.letter];
+        if (!currentStatus || 
+            (currentStatus === "absent" && tile.status !== "absent") ||
+            (currentStatus === "present" && tile.status === "correct")) {
+          keyStatuses[tile.letter] = tile.status;
+        }
+      });
+
+      renderGrid();
+      renderKeyboard();
+
+      if (currentGuess === targetWord) {
+        gameOver = true;
+        showMessage(true);
+      } else if (currentRow === MAX_GUESSES - 1) {
+        gameOver = true;
+        showMessage(false);
+      } else {
+        currentRow++;
+        currentGuess = "";
+      }
+    }
+
+    function renderKeyboard() {
+      const keys = document.querySelectorAll(".key");
+      keys.forEach(keyButton => {
+        const key = keyButton.dataset.key;
+        if (key === "ENTER" || key === "⌫") return;
+        
+        keyButton.className = "key";
+        const status = keyStatuses[key];
+        if (status) {
+          keyButton.classList.add(status);
+        }
+        
+        keyButton.disabled = gameOver;
+      });
+    }
+
+    function showMessage(won) {
+      const messageDiv = document.getElementById("message");
+      messageDiv.className = "message";
+      messageDiv.style.display = "block";
+      
+      messageDiv.innerHTML = `
+        <h2>${won ? "Συγχαρητήρια! 🎉" : "Καλή Τύχη! 😢"}</h2>
+        <p>${won 
+          ? `You guessed the word in ${currentRow + 1} ${currentRow === 0 ? "try" : "tries"}!`
+          : `The word was: ${targetWord}`
+        }</p>
+        <button class="button" onclick="startNewGame()">Play Again</button>
+      `;
+    }
+
+    function openHelp() {
+      document.getElementById("helpModal").classList.add("show");
+    }
+
+    function closeHelp() {
+      document.getElementById("helpModal").classList.remove("show");
+    }
+
+    document.getElementById("helpModal").onclick = function(e) {
+      if (e.target === this) closeHelp();
+    };
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toUpperCase();
+      const greekKey = GREEK_KEYS.flat().find(k => k === key);
+      
+      if (key === "ENTER" || greekKey) {
+        handleKeyPress(key === "ENTER" ? "ENTER" : greekKey);
+      } else if (key === "BACKSPACE") {
+        handleKeyPress("⌫");
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
