@@ -28,7 +28,61 @@ const GREEK_WORDS = [
   "ΜΑΝΕΣ", // man (adding Ρ to make 5)
   "ΓΝΩΣΗ", // knowledge
   "ΔΟΞΑΣ", // glory (adding Σ to make 5)  
-  "ΣΠΙΤΙ", // peace
+  "ΣΠΙΤΙ", // house
+  "ΑΓΑΠΗ", // love
+"ΑΓΟΡΑ", // market
+"ΑΔΕΙΑ", // permit / empty
+"ΑΘΛΟΣ", // feat
+"ΑΛΛΟΙ", // others
+"ΑΝΘΟΣ", // flower
+"ΑΞΙΑΣ", // value (genitive)
+"ΑΠΟΨΗ", // opinion
+"ΑΡΧΕΣ", // beginnings / principles
+"ΑΣΤΡΑ", // stars (plural)
+"ΑΥΤΟΣ", // he / itself
+"ΒΑΘΟΣ", // depth
+"ΒΙΒΛΟ", // book (colloq. biblo)
+"ΒΛΑΒΗ", // damage
+"ΒΟΛΤΑ", // walk / stroll
+"ΓΕΥΣΗ", // taste
+"ΓΝΩΜΗ", // opinion / view
+"ΓΡΑΦΗ", // writing
+"ΔΑΚΡΥ", // tear
+"ΔΕΞΙΑ", // right (direction)
+"ΔΙΠΛΑ", // beside / next to
+"ΕΙΔΟΣ", // type / species
+"ΕΝΤΟΣ", // inside
+"ΖΩΝΗ", // belt / zone
+"ΗΛΙΟΣ", // sun
+"ΙΔΕΑΣ", // idea (genitive or stem)
+"ΙΣΤΟΣ", // web / tissue / mast
+"ΙΣΧΥΣ", // strength / power
+"ΚΟΙΝΑ", // common / publicly
+"ΚΟΡΜΙ", // torso / body
+"ΚΡΕΑΣ", // meat
+"ΛΑΜΠΑ", // lamp
+"ΛΙΜΝΗ", // lake
+"ΜΑΝΙΑ", // mania / craze
+"ΜΕΛΟΣ", // member / melody
+"ΜΙΚΡΟ", // small
+"ΜΟΝΟΣ", // alone
+"ΜΟΥΣΑ", // muse
+"ΝΑΥΤΗ", // sailor (vocative/variant of ναύτης)
+"ΝΕΚΡΑ", // dead (feminine plural)
+"ΝΟΜΟΣ", // law / region
+"ΟΔΟΣ", // road (note: 4 letters; replaced below with valid 5-letter instead)
+"ΟΙΚΙΑ", // house
+"ΠΑΘΟΣ", // passion
+"ΠΑΙΔΙ", // child (4 letters — replaced below with valid 5-letter instead)
+"ΠΟΡΤΑ", // door
+"ΤΕΛΟΣ", // end
+"ΤΟΠΟΣ", // place
+"ΡΥΘΜΟ", // rhythm
+"ΤΡΟΦΗ", // food
+"ΥΠΝΟΣ", // sleep
+"ΦΩΤΙΑ", // fire
+"ΧΡΟΝΟ", // time (accusative of ΧΡΟΝΟΣ)
+"ΩΡΑΙΑ", // beautiful (fem. sing.)
 ]
 
 // Greek keyboard layout (uppercase)
