@@ -251,7 +251,7 @@ export default function GreekWordleGame() {
       {/* Game Over Message */}
       {gameOver && (
         <Card className="p-6 max-w-md text-center animate-in fade-in slide-in-from-bottom-4">
-          <h2 className="text-2xl font-bold mb-2 text-balance">{won ? "Συγχαρητήρια! 🎉" : "Καλή Τύχη! 😢"}</h2>
+          <h2 className="text-2xl font-bold mb-2 text-balance">{won ? "Συγχαρητήρια! 🎉" : "Έχασες! 😢"}</h2>
           <p className="text-muted-foreground mb-4 text-pretty">
             {won
               ? `You guessed the word in ${currentRow + 1} ${currentRow === 0 ? "try" : "tries"}!`
