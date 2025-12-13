@@ -19,70 +19,55 @@ const MAX_GUESSES = 6
 
 // Greek 5-letter words for the game
 const GREEK_WORDS = [
-  "ΛΟΓΟΣ", // word/reason
-  "ΚΑΛΟΣ", // good
-  "ΝΕΡΟΥ", // water
-  "ΨΥΧΗΣ", // soul
-  "ΠΟΛΗΣ", // city
-  "ΤΕΧΝΗ", // art/skill
-  "ΜΑΝΕΣ", // man (adding Ρ to make 5)
-  "ΓΝΩΣΗ", // knowledge
-  "ΔΟΞΑΣ", // glory (adding Σ to make 5)  
-  "ΣΠΙΤΙ", // house
-  "ΑΓΑΠΗ", // love
-"ΑΓΟΡΑ", // market
-"ΑΔΕΙΑ", // permit / empty
-"ΑΘΛΟΣ", // feat
-"ΑΛΛΟΙ", // others
-"ΑΝΘΟΣ", // flower
-"ΑΞΙΑΣ", // value (genitive)
-"ΑΠΟΨΗ", // opinion
-"ΑΡΧΕΣ", // beginnings / principles
-"ΑΣΤΡΑ", // stars (plural)
-"ΑΥΤΟΣ", // he / itself
-"ΒΑΘΟΣ", // depth
-"ΒΙΒΛΟ", // book (colloq. biblo)
-"ΒΛΑΒΗ", // damage
-"ΒΟΛΤΑ", // walk / stroll
-"ΓΕΥΣΗ", // taste
-"ΓΝΩΜΗ", // opinion / view
-"ΓΡΑΦΗ", // writing
-"ΔΑΚΡΥ", // tear
-"ΔΕΞΙΑ", // right (direction)
-"ΔΙΠΛΑ", // beside / next to
-"ΕΙΔΟΣ", // type / species
-"ΕΝΤΟΣ", // inside
-"ΖΩΝΗ", // belt / zone
-"ΗΛΙΟΣ", // sun
-"ΙΔΕΑΣ", // idea (genitive or stem)
-"ΙΣΤΟΣ", // web / tissue / mast
-"ΙΣΧΥΣ", // strength / power
-"ΚΟΙΝΑ", // common / publicly
-"ΚΟΡΜΙ", // torso / body
-"ΚΡΕΑΣ", // meat
-"ΛΑΜΠΑ", // lamp
-"ΛΙΜΝΗ", // lake
-"ΜΑΝΙΑ", // mania / craze
-"ΜΕΛΟΣ", // member / melody
-"ΜΙΚΡΟ", // small
-"ΜΟΝΟΣ", // alone
-"ΜΟΥΣΑ", // muse
-"ΝΑΥΤΗ", // sailor (vocative/variant of ναύτης)
-"ΝΕΚΡΑ", // dead (feminine plural)
-"ΝΟΜΟΣ", // law / region
-"ΟΔΟΣ", // road (note: 4 letters; replaced below with valid 5-letter instead)
-"ΟΙΚΙΑ", // house
-"ΠΑΘΟΣ", // passion
-"ΠΑΙΔΙ", // child (4 letters — replaced below with valid 5-letter instead)
-"ΠΟΡΤΑ", // door
-"ΤΕΛΟΣ", // end
-"ΤΟΠΟΣ", // place
-"ΡΥΘΜΟ", // rhythm
-"ΤΡΟΦΗ", // food
-"ΥΠΝΟΣ", // sleep
-"ΦΩΤΙΑ", // fire
-"ΧΡΟΝΟ", // time (accusative of ΧΡΟΝΟΣ)
-"ΩΡΑΙΑ", // beautiful (fem. sing.)
+"ΑΕΡΑΣ", // air
+"ΑΚΜΗ", // peak / prime
+"ΑΛΛΑ", // but / other things
+"ΑΜΜΟΣ", // sand
+"ΑΜΥΝΑ", // defense
+"ΑΡΕΤΗ", // virtue
+"ΑΥΓΗΣ", // dawn
+"ΒΑΡΟΣ", // weight
+"ΒΗΜΑ", // step
+"ΓΑΜΟΣ", // marriage
+"ΠΕΡΑΣ", // old age
+"ΚΑΝΕΙΣ", // you do
+"ΔΑΣΟΣ", // forest
+"ΔΕΡΜΑ", // skin
+"ΔΙΚΗΣ", // trial / justice
+"ΔΡΟΜΟ", // road / way
+"ΕΛΕΟΣ", // mercy
+"ΠΕΡΣΙ", // last year
+"ΕΠΟΥΣ", // epic
+"ΕΡΩΤΑ", // romantic love
+"ΚΕΡΜΑ", // coin
+"ΘΕΑΜΑ", // spectacle
+"ΧΙΟΝΙ", // snow
+"ΙΔΙΟΣ", // own / peculiar (neuter)
+"ΚΑΙΡΟ", // weather / time
+"ΚΑΚΟΥ", // evil / bad (neuter)
+"ΚΑΠΝΟ", // smoke
+"ΚΕΦΙΑ", // high spirits / fun
+"ΚΛΑΔΙ", // branch
+"ΚΛΙΜΑ", // climate
+"ΚΟΣΜΟ", // world / people
+"ΚΡΥΟΥ", // cold (neuter)
+"ΛΑΔΙΑ", // oil
+"ΛΑΘΟΣ", // mistake
+"ΜΕΤΡΟ", // measure / meter
+"ΜΗΤΡΑ", // womb / matrix
+"ΜΥΘΟΣ", // myth
+"ΟΙΚΟΣ", // house / lineage
+"ΒΑΘΙΑ", 
+"ΟΥΡΕΣ", // tail
+"ΠΕΔΙΟ", // field
+"ΠΝΟΗΣ", // breath
+"ΡΕΥΜΑ", // current / flow
+"ΣΕΙΡΑ", // row / series
+"ΣΚΟΠΟ", // purpose / goal
+"ΣΤΟΜΑ", // mouth
+"ΦΙΛΟΙ", // friends
+"ΧΑΡΑΣ", // joy
+"ΜΑΝΑΣ", // soil / earth
 ]
 
 // Greek keyboard layout (uppercase)
